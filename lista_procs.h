@@ -1,4 +1,4 @@
-#ifndef LISTAPROCS_H_   /* Include guard */
+#ifndef LISTAPROCS_H_ 
 #define LISTAPROCS_H_
 
 //Estructura que almacena los datos del proceso.
@@ -6,17 +6,17 @@ typedef struct proceso{
 	struct proceso *next;
 	int pid;
 	int size;
+	int paginas;
 
 }proceso;
 //Apuntador al inicio de la lista
 typedef struct list{
 	proceso *head;
 	int length;
-
 }lista;
 
-proceso *createNode(int, int);
-int removeNode(proceso *node);
+proceso *createProc(int, int);
+int removeProc(proceso *node);
 
 lista *createList();
 int removeList(lista *list);
@@ -34,4 +34,4 @@ int removeAtStart(lista *list);
 int removeAtEnd(lista *list);
 int removeAtPos(lista *list, int n);
 
-#endif // FOO_H_
+#endif 

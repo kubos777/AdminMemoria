@@ -1,17 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include "lista_procs.h"
 
-proceso *createNode(int pid, int size){
+proceso *createProc(int pid, int size){
 	proceso *node = (proceso *) malloc(sizeof(proceso));
 	node->pid = pid;
 	node->size = size;
+	node->paginas = ceil((float)size / 15);
 	node->next = NULL;
 
 	return node;
 }
 
-int removeNode(proceso *node){
+int removeProc(proceso *node){
 	//node->pid = NULL;
 	node->next = NULL;
 	free(node);
@@ -35,7 +37,8 @@ int removeList(lista *list){
 	for(i = 0; i<size; i++){
 		temp = ptr;
 		ptr = ptr->next;
-		removeNode(temp);
+		removeProc
+	(temp);
 		list->length--;
 	}
 
@@ -48,10 +51,10 @@ void printList(lista *list){
 	int length = getLength(list)-1, i;
 	proceso *ptr = list->head;
 
-	printf("PID\tTAM.\n");
+	printf("PID\tPAGS.\n");
 	for(i = 0; i<=length-1; i++){
 
-		printf("%d\t%d\n", ptr->pid, ptr->size);
+		printf("%d\t%d\n", ptr->pid, ptr->paginas);
 		ptr = ptr->next;
 	}
 
@@ -84,7 +87,7 @@ int getLength(lista *list){
 
 int insertAtStart(int pid, int size, lista *list){
 	if(list != NULL){
-		proceso *new = createNode(pid, size);
+		proceso *new = createProc(pid, size);
 		if(list->head == NULL){
 			list->head = new;
 		}else{
@@ -106,7 +109,7 @@ int insertAtEnd(int pid, int size, lista *list){
 		if(list->head == NULL){
 			insertAtStart(pid, size, list);
 		}else{
-			proceso *new = createNode(pid, size);
+			proceso *new = createProc(pid, size);
 			proceso *l_node = list->head;
 
 			while(l_node->next != NULL){
@@ -132,7 +135,7 @@ int insertAtPos(int pid, int size, lista *list, int n){
 			insertAtEnd(pid, size, list);
 		}else{
 			int i;
-			proceso *new = createNode(pid, size);
+			proceso *new = createProc(pid, size);
 			proceso *l_node = list->head;
 
 			for(i = 0; i<n-1; i++){
@@ -155,7 +158,8 @@ int removeAtStart(lista *list){
 	if(list != NULL && list->head != NULL){
 		proceso *delete = list->head;
 		list->head = delete->next;
-		removeNode(delete);
+		removeProc
+	(delete);
 
 		list->length--;
 
@@ -172,7 +176,8 @@ int removeAtEnd(lista *list){
 
 		}
 
-		removeNode(l_node->next);
+		removeProc
+	(l_node->next);
 		l_node->next = NULL;
 		list->length--;
 
@@ -198,7 +203,8 @@ int removeAtPos(lista *list, int n){
 			}
 
 			proceso *r_node = l_node->next->next;
-			removeNode(l_node->next);
+			removeProc
+		(l_node->next);
 			l_node->next = r_node;
 
 			list->length--;
