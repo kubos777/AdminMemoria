@@ -51,10 +51,10 @@ void printList(lista *list){
 	int length = getLength(list)-1, i;
 	proceso *ptr = list->head;
 
-	printf("PID\tPAGS.\n");
+	printf("\tPID\tPAGS.\n");
 	for(i = 0; i<=length-1; i++){
 
-		printf("%d\t%d\n", ptr->pid, ptr->paginas);
+		printf("\t%d\t%d\n", ptr->pid, ptr->paginas);
 		ptr = ptr->next;
 	}
 

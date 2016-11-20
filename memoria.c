@@ -124,10 +124,11 @@ int printQueue (memoria* queue)
 {
 	marco *ptr = queue->front;
 	int i, size = getQueueSize(queue);
+	printf("\tPID\tPAG. CARGADA \n");
 
 	for (i = 0; i < size; i ++)
 	{
-		//printf("[%d] Dirección: %p - Dato: %s - Siguiente: %p - Anterior: %p\n", i, ptr, ptr->pid, ptr->next, ptr->prev);
+		printf("\t%d\t%d \n", ptr->pid, ptr->paginas);
 		ptr = ptr->next;
 	}
 }
