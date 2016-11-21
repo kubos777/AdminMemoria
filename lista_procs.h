@@ -4,10 +4,9 @@
 //Estructura que almacena los datos del proceso.
 typedef struct proceso{
 	struct proceso *next;
-	int pid;
-	int size;
-	int paginas;
-
+	int pid;		//Variable que contiene el PID del proceso.
+	int size;		//Variable que contiene el tamaño en palabras del proceso.
+	int paginas;	//Variable que contiene el tamaño en páginas del proceso.
 }proceso;
 //Apuntador al inicio de la lista
 typedef struct list{

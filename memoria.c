@@ -23,17 +23,21 @@ int main (int argc, char *argv[])
 }
 */
 
-marco *createMarco (int pid, int size, int paginas)
+marco *createMarco (int pid, int size, int paginas, int inst_ejec)
 {
 	marco *node = (marco*) calloc (1, sizeof(marco));
 	node->pid = pid;
 	node->size = size;
 	node->paginas = paginas;
+	node->inst_ejec = inst_ejec;
 }
 
 int removeMarco (marco *node)
 {
 	node->pid = 0;
+	node->size = 0;
+	node->paginas = 0;
+	node->inst_ejec = 0;
 	node->next = NULL;
 	node->prev = NULL;
 	free (node);
@@ -73,11 +77,11 @@ marco *peek (memoria* queue)
 		return NULL;
 }
 
-int enqueue (int pid, int size, int paginas, memoria* queue)
+int enqueue (int pid, int size, int paginas, int inst_ejec, memoria* queue)
 {
 	if (queue != NULL)
 	{
-		marco *new = createMarco(pid, size, paginas);
+		marco *new = createMarco(pid, size, paginas, inst_ejec);
 		if (queue->front == NULL)
 		{
 			queue->back = new;
@@ -109,12 +113,11 @@ marco *dequeue (memoria* queue)
 	{
 		marco *aux = queue->front;
 		queue->front = aux->next;
-		queue->front->prev = NULL;
-
-		removeMarco(aux);
-		queue->size --;
+		//queue->front->prev = NULL;
+		queue->size --;	
 
 		return aux;
+		//removeMarco(aux);	
 	}
 	else
 		return NULL;
@@ -123,14 +126,17 @@ marco *dequeue (memoria* queue)
 int printQueue (memoria* queue)
 {
 	marco *ptr = queue->front;
-	int i, size = getQueueSize(queue);
-	printf("\tPID\tPAG. CARGADA \n");
+	int i;
 
-	for (i = 0; i < size; i ++)
+	printf("\t%d", ptr->pid);
+	ptr = ptr->next;
+	for (i = 0; i < getQueueSize(queue)-1; i ++)
 	{
-		printf("\t%d\t%d \n", ptr->pid, ptr->paginas);
+		printf(" <- %d", ptr->pid);
 		ptr = ptr->next;
 	}
+	printf("\n");
+	return 0;
 }
 
 int getQueueSize (memoria* queue)
