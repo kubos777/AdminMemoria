@@ -23,13 +23,15 @@ int main (int argc, char *argv[])
 }
 */
 
-marco *createMarco (int pid, int size, int paginas, int inst_ejec)
+marco *createMarco (int pid, int size, int paginas, int inst_ejec, int bloque, int desplazamiento, memoria *memoria)
 {
 	marco *node = (marco*) calloc (1, sizeof(marco));
 	node->pid = pid;
 	node->size = size;
 	node->paginas = paginas;
 	node->inst_ejec = inst_ejec;
+	node->bloque = bloque;
+	node->desplazamiento = desplazamiento;
 }
 
 int removeMarco (marco *node)
@@ -77,11 +79,11 @@ marco *peek (memoria* queue)
 		return NULL;
 }
 
-int enqueue (int pid, int size, int paginas, int inst_ejec, memoria* queue)
+int enqueue (int pid, int size, int paginas, int inst_ejec, int bloque, int desplazamiento, memoria* queue)
 {
 	if (queue != NULL)
 	{
-		marco *new = createMarco(pid, size, paginas, inst_ejec);
+		marco *new = createMarco(pid, size, paginas, inst_ejec, bloque, desplazamiento, queue);
 		if (queue->front == NULL)
 		{
 			queue->back = new;

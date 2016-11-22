@@ -8,7 +8,9 @@ typedef struct marco{
 	int pid;			//Variable que contiene el PID del proceso.
 	int size;			//Variable que contiene el tamaño en palabras del proceso.
 	int paginas;		//Variable que contiene el tamaño en páginas del proceso.
-	int inst_ejec; 	//Variable que simula el apuntador de instrucciones.
+	int inst_ejec; 	//Variable que simula al apuntador de instrucciones.
+	int bloque;
+	int desplazamiento;
 }marco;
 //Apuntador al inicio de la lista
 typedef struct memoria{
@@ -18,12 +20,12 @@ typedef struct memoria{
 
 }memoria;
 
-marco *createMarco (int, int, int, int);
+marco *createMarco (int, int, int, int, int, int, memoria *);
 int removeMarco (marco*);
 memoria *createQueue ();
 int removeQueue (memoria*);
 marco *peek (memoria*);
-int enqueue (int, int, int, int, memoria*);
+int enqueue (int, int, int, int, int, int, memoria*);
 marco *dequeue (memoria*);
 int printQueue (memoria*);
 int getQueueSize (memoria*);
